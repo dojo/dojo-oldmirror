@@ -2,6 +2,5 @@
 tests= typeof tests=="undefined" ? {} : tests;
 
 define(["./readOnlyItemFileTestTemplates", "dojo/data/ItemFileReadStore"], function() {
-	tests.data.readOnlyItemFileTestTemplates.registerTestsForDatastore("dojo.data.ItemFileReadStore");
+  tests.data.readOnlyItemFileTestTemplates.registerTestsForDatastore("dojo.data.ItemFileReadStore");
 });
-

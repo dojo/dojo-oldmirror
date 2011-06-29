@@ -16,9 +16,9 @@ xdomainExecSequence.push("local1-4");
 
 // a loadInit that makes a calculation a later requireIf depends upon
 dojo.loadInit(function(){
-	xdomainExecSequence.push("local1-5");
-	var dependentModule= dojo.getObject("dojo.tests._base.loader.xdomain.local1-runtimeDependent", true);
-	dependentModule.choice = 1;
+  xdomainExecSequence.push("local1-5");
+  var dependentModule= dojo.getObject("dojo.tests._base.loader.xdomain.local1-runtimeDependent", true);
+  dependentModule.choice = 1;
 });
 xdomainExecSequence.push("local1-6");
 
@@ -30,10 +30,10 @@ xdomainExecSequence.push("local1-8");
 
 // platformRequire test
 dojo.platformRequire({
-	browser:[
-		"dojo.tests._base.loader.xdomain.local1-browser",
-		["dojo.tests._base.loader.xdomain.local1-browser-skip", true]
-	]
+  browser:[
+    "dojo.tests._base.loader.xdomain.local1-browser",
+    ["dojo.tests._base.loader.xdomain.local1-browser-skip", true]
+  ]
 });
 
 // these are xd bundles which should be loaded async
@@ -57,9 +57,9 @@ xdomainExecSequence.push("local1-16");
 
 // another loadInit; it should be executed immediately after the first load init
 dojo.loadInit(function(){
-	xdomainExecSequence.push("local1-17");
-	var dependentModule= dojo.getObject("dojo.tests._base.loader.xdomain.local1-runtimeDependent");
-	dependentModule.status = "ok";
+  xdomainExecSequence.push("local1-17");
+  var dependentModule= dojo.getObject("dojo.tests._base.loader.xdomain.local1-runtimeDependent");
+  dependentModule.status = "ok";
 });
 xdomainExecSequence.push("local1-18");
 

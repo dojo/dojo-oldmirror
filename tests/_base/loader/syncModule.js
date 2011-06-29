@@ -1,5 +1,5 @@
 if (typeof dojoCdnTestLog=="undefined"){
-	dojoCdnTestLog= [];
+  dojoCdnTestLog= [];
 }
 dojoCdnTestLog.push("in-dojo.tests._base.loader.syncModule");
 dojo.provide("dojo.tests._base.loader.syncModule");

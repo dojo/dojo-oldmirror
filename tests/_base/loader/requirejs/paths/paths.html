@@ -3,10 +3,10 @@
 <head>
     <title>require.js: paths Test</title>
     <script type="text/javascript">
-		requirejsArgs= {
-			dojoLocation:"../../../../.."
-		};
-	</script>
+    requirejsArgs= {
+      dojoLocation:"../../../../.."
+    };
+  </script>
     <script type="text/javascript" src="../requirejs-setup.js"></script>
     <script type="text/javascript" src="../../../../../dojo.js"></script>
     <script type="text/javascript">
@@ -38,9 +38,9 @@
                                 scriptCounter += 1;
                             }
                         }
-						if(require.async){
-							t.is(1, scriptCounter);
-						}
+            if(require.async){
+              t.is(1, scriptCounter);
+            }
                         t.is(2, globalCounter);
                         t.is("first", first.name);
                         t.is("second", first.secondName);

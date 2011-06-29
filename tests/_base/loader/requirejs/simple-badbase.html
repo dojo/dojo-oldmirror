@@ -2,13 +2,13 @@
 <head>
     <title>require.js: Simple Bad Base Test</title>
     <base href="http://some.example.com/path/" />
-	<script type="text/javascript">
-	  document.write('<scr' + 'ipt type="text/javascript" src="' + window.parent.doh.dohArgs.setup + '"></scr' + 'ipt>' );
-	  document.write('<scr' + 'ipt type="text/javascript" src="' + window.parent.doh.dohArgs.dojo + '"></scr' + 'ipt>' );
-	</script>
+  <script type="text/javascript">
+    document.write('<scr' + 'ipt type="text/javascript" src="' + window.parent.doh.dohArgs.setup + '"></scr' + 'ipt>' );
+    document.write('<scr' + 'ipt type="text/javascript" src="' + window.parent.doh.dohArgs.dojo + '"></scr' + 'ipt>' );
+  </script>
     <script type="text/javascript">
         require(
-			// the set up script sets the base URL
+      // the set up script sets the base URL
             ["require", "simple", "dimple", "func", "doh"],
             function(require, simple, dimple, func) {
                 doh.register(

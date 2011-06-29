@@ -1,8 +1,8 @@
 dojo.loadInit(function(){
-	// this function is evaluated first and only once
-	dojoCdnTestLog.push("loadInit in cdnTest");
-	// define a global variable
-	dojoCdnTest= 1;
+  // this function is evaluated first and only once
+  dojoCdnTestLog.push("loadInit in cdnTest");
+  // define a global variable
+  dojoCdnTest= 1;
 });
 
 dojoCdnTestLog.push("in-dojo.tests._base.loader.cdnTest");
@@ -22,12 +22,12 @@ var t3= dojo.i18n.getLocalization("dojo.tests._base.loader", "amdBundle");
 var t4= dojo.i18n.getLocalization("dojo.tests._base.loader", "amdBundle", "ab-cd-ef");
 
 require(["doh"], function(doh){
-	doh.register("test-i18n-inline", function(t){
-		t.is(t1.syncBundle, "syncBundle");
-		t.is(t2.syncBundle, "syncBundle-ab-cd-ef");
-		t.is(t3.amdBundle, "amdBundle");
-		t.is(t4.amdBundle, "amdBundle-ab-cd-ef");
-	});
+  doh.register("test-i18n-inline", function(t){
+    t.is(t1.syncBundle, "syncBundle");
+    t.is(t2.syncBundle, "syncBundle-ab-cd-ef");
+    t.is(t3.amdBundle, "amdBundle");
+    t.is(t4.amdBundle, "amdBundle-ab-cd-ef");
+  });
 });
 })();
 

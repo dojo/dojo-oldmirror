@@ -8,7 +8,3 @@ dojo.provide("my.module3");
 
 // here's a challenge with dojo.provide in a string
 dojo.deprecated("dojo.provide", 'dojo.provide("some.module") should not be used', "2.0");
-
-
-
-

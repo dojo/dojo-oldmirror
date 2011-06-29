@@ -8,11 +8,11 @@
 dojo.require("dojo._base.fx");
 dojo.require("dojo._base.html");
 dojo.addOnLoad(function(){
-	var box = dojo.byId("box");
-	dojo.connect(box, "onclick", function(){
-		dojo.style(box, "opacity", "0");
-		dojo.fadeIn({node:box, delay:1}).play();
-	});
+  var box = dojo.byId("box");
+  dojo.connect(box, "onclick", function(){
+    dojo.style(box, "opacity", "0");
+    dojo.fadeIn({node:box, delay:1}).play();
+  });
 });
 </script>
 </head>

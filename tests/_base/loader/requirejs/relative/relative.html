@@ -3,16 +3,16 @@
 <head>
     <title>require.js: Relative Module Names Test</title>
     <script type="text/javascript">
-		requirejsArgs= {
-			dojoLocation:"../../../../.."
-		};
-	</script>
+    requirejsArgs= {
+      dojoLocation:"../../../../.."
+    };
+  </script>
     <script type="text/javascript" src="../requirejs-setup.js"></script>
     <script type="text/javascript" src="../../../../../dojo.js"></script>
     <script type="text/javascript">
-	    // alias dojo's text module to text!
-		define("text", ["dojo/text"], function(text){ return text; });
-	</script>
+      // alias dojo's text module to text!
+    define("text", ["dojo/text"], function(text){ return text; });
+  </script>
     <script type="text/javascript" src="relative-tests.js"></script>
 </head>
 <body>

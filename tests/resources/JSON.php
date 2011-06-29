@@ -1,9 +1,9 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/** 
+/**
  * Converts to and from JSON format.
- * 
+ *
  * JSON (JavaScript Object Notation) is a lightweight data-interchange
  * format. It is easy for humans to read and write. It is easy for machines
  * to parse and generate. It is based on a subset of the JavaScript
@@ -13,7 +13,7 @@
  * to programmers of the C-family of languages, including C, C++, C#, Java,
  * JavaScript, Perl, TCL, and many others. These properties make JSON an
  * ideal data-interchange language.
- * 
+ *
  * This package provides a simple encoder and decoder for JSON notation. It
  * is intended for use with client-side Javascript applications that make
  * use of HTTPRequest to perform server communication functions - data can
@@ -32,7 +32,7 @@
  * copyright notice, this list of conditions and the following disclaimer
  * in the documentation and/or other materials provided with the
  * distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
@@ -44,8 +44,8 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
- * 
- * @category   
+ *
+ * @category
  * @package     Services_JSON
  * @author      Michal Migurski <mike-json@teczno.com>
  * @author      Matt Knapp <mdknapp[at]gmail[dot]com>
@@ -90,7 +90,7 @@ define('SERVICES_JSON_LOOSE_TYPE', 10);
  */
 define('SERVICES_JSON_STRICT_TYPE', 11);
 
-/** 
+/**
  * Converts to and from JSON format.
  *
  * Brief example of use:
@@ -98,14 +98,14 @@ define('SERVICES_JSON_STRICT_TYPE', 11);
  * <code>
  * // create a new instance of Services_JSON
  * $json = new Services_JSON();
- * 
+ *
  * // convert a complexe value to JSON notation, and send it to the browser
  * $value = array('foo', 'bar', array(1, 2, 'baz'), array(3, array(4)));
  * $output = $json->encode($value);
  *
  * print($output);
  * // prints: ["foo","bar",[1,2,"baz"],[3,[4]]]
- * 
+ *
  * // accept incoming POST data, assumed to be in JSON notation
  * $input = file_get_contents('php://input', 1000000);
  * $value = $json->decode($input);
@@ -146,7 +146,7 @@ class Services_JSON
         // oh please oh please oh please oh please oh please
         if(function_exists('mb_convert_encoding'))
             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');
-        
+
         $bytes = (ord($utf16{0}) << 8) | ord($utf16{1});
 
         switch(true) {
@@ -171,7 +171,7 @@ class Services_JSON
 
         // ignoring UTF-32 for now, sorry
         return '';
-    }        
+    }
 
    /**
     * convert a string from one UTF-8 char to one UTF-16 char
@@ -189,7 +189,7 @@ class Services_JSON
         // oh please oh please oh please oh please oh please
         if(function_exists('mb_convert_encoding'))
             return mb_convert_encoding($utf8, 'UTF-16', 'UTF-8');
-        
+
         switch(strlen($utf8)) {
             case 1:
                 // this case should never be reached, because we are in ASCII range
@@ -202,7 +202,7 @@ class Services_JSON
                 return chr(0x07 & (ord($utf8{0}) >> 2))
                      . chr((0xC0 & (ord($utf8{0}) << 6))
                          | (0x3F & ord($utf8{1})));
-                
+
             case 3:
                 // return a UTF-16 character from a 3-byte UTF-8 char
                 // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -214,7 +214,7 @@ class Services_JSON
 
         // ignoring UTF-32 for now, sorry
         return '';
-    }        
+    }
 
    /**
     * encodes an arbitrary variable into JSON format
@@ -232,17 +232,17 @@ class Services_JSON
         switch (gettype($var)) {
             case 'boolean':
                 return $var ? 'true' : 'false';
-            
+
             case 'NULL':
                 return 'null';
-            
+
             case 'integer':
                 return (int) $var;
-                
+
             case 'double':
             case 'float':
                 return (float) $var;
-                
+
             case 'string':
                 // STRINGS ARE EXPECTED TO BE IN ASCII OR UTF-8 FORMAT
                 $ascii = '';
@@ -253,9 +253,9 @@ class Services_JSON
                 * escaping with a slash or encoding to UTF-8 where necessary
                 */
                 for ($c = 0; $c < $strlen_var; ++$c) {
-                    
+
                     $ord_var_c = ord($var{$c});
-                    
+
                     switch (true) {
                         case $ord_var_c == 0x08:
                             $ascii .= '\b';
@@ -279,12 +279,12 @@ class Services_JSON
                             // double quote, slash, slosh
                             $ascii .= '\\'.$var{$c};
                             break;
-                            
+
                         case (($ord_var_c >= 0x20) && ($ord_var_c <= 0x7F)):
                             // characters U-00000000 - U-0000007F (same as ASCII)
                             $ascii .= $var{$c};
                             break;
-                        
+
                         case (($ord_var_c & 0xE0) == 0xC0):
                             // characters U-00000080 - U-000007FF, mask 110XXXXX
                             // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -293,7 +293,7 @@ class Services_JSON
                             $utf16 = $this->utf82utf16($char);
                             $ascii .= sprintf('\u%04s', bin2hex($utf16));
                             break;
-    
+
                         case (($ord_var_c & 0xF0) == 0xE0):
                             // characters U-00000800 - U-0000FFFF, mask 1110XXXX
                             // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -304,7 +304,7 @@ class Services_JSON
                             $utf16 = $this->utf82utf16($char);
                             $ascii .= sprintf('\u%04s', bin2hex($utf16));
                             break;
-    
+
                         case (($ord_var_c & 0xF8) == 0xF0):
                             // characters U-00010000 - U-001FFFFF, mask 11110XXX
                             // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -316,7 +316,7 @@ class Services_JSON
                             $utf16 = $this->utf82utf16($char);
                             $ascii .= sprintf('\u%04s', bin2hex($utf16));
                             break;
-    
+
                         case (($ord_var_c & 0xFC) == 0xF8):
                             // characters U-00200000 - U-03FFFFFF, mask 111110XX
                             // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -329,7 +329,7 @@ class Services_JSON
                             $utf16 = $this->utf82utf16($char);
                             $ascii .= sprintf('\u%04s', bin2hex($utf16));
                             break;
-    
+
                         case (($ord_var_c & 0xFE) == 0xFC):
                             // characters U-04000000 - U-7FFFFFFF, mask 1111110X
                             // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -345,9 +345,9 @@ class Services_JSON
                             break;
                     }
                 }
-                
+
                 return '"'.$ascii.'"';
-                
+
             case 'array':
                /*
                 * As per JSON spec if any array key is not an integer
@@ -358,7 +358,7 @@ class Services_JSON
                 * max_index which can cause memory issues and because
                 * the keys, which may be relevant, will be remapped
                 * otherwise.
-                * 
+                *
                 * As per the ECMA and JSON specification an object may
                 * have any string as a property. Unfortunately due to
                 * a hole in the ECMA specification if the key is a
@@ -366,8 +366,8 @@ class Services_JSON
                 * parameter is only accessible using ECMAScript's
                 * bracket notation.
                 */
-                
-                // treat as a JSON object  
+
+                // treat as a JSON object
                 if (is_array($var) && count($var) && (array_keys($var) !== range(0, sizeof($var) - 1))) {
                     return '{' .
                            join(',', array_map(array($this, 'name_value'),
@@ -378,7 +378,7 @@ class Services_JSON
 
                 // treat it like a regular array
                 return '[' . join(',', array_map(array($this, 'encode'), $var)) . ']';
-                
+
             case 'object':
                 $vars = get_object_vars($var);
                 return '{' .
@@ -391,7 +391,7 @@ class Services_JSON
                 return '';
         }
     }
-    
+
    /**
     * array-walking function for use in generating JSON-formatted name-value pairs
     *
@@ -404,7 +404,7 @@ class Services_JSON
     function name_value($name, $value)
     {
         return $this->encode(strval($name)) . ':' . $this->encode($value);
-    }        
+    }
 
    /**
     * reduce a string by removing leading and trailing comments and whitespace
@@ -417,18 +417,18 @@ class Services_JSON
     function reduce_string($str)
     {
         $str = preg_replace(array(
-        
+
                 // eliminate single line comments in '// ...' form
                 '#^\s*//(.+)$#m',
-    
+
                 // eliminate multi-line comments in '/* ... */' form, at start of string
                 '#^\s*/\*(.+)\*/#Us',
-    
+
                 // eliminate multi-line comments in '/* ... */' form, at end of string
                 '#/\*(.+)\*/\s*$#Us'
-    
+
             ), '', $str);
-        
+
         // eliminate extraneous space
         return trim($str);
     }
@@ -448,17 +448,17 @@ class Services_JSON
     function decode($str)
     {
         $str = $this->reduce_string($str);
-    
+
         switch (strtolower($str)) {
             case 'true':
                 return true;
 
             case 'false':
                 return false;
-            
+
             case 'null':
                 return null;
-            
+
             default:
                 if (is_numeric($str)) {
                     // Lookie-loo, it's a number
@@ -471,19 +471,19 @@ class Services_JSON
                     return ((float)$str == (integer)$str)
                         ? (integer)$str
                         : (float)$str;
-                    
+
                 } elseif (preg_match('/^("|\').*(\1)$/s', $str, $m) && $m[1] == $m[2]) {
                     // STRINGS RETURNED IN UTF-8 FORMAT
                     $delim = substr($str, 0, 1);
                     $chrs = substr($str, 1, -1);
                     $utf8 = '';
                     $strlen_chrs = strlen($chrs);
-                    
+
                     for ($c = 0; $c < $strlen_chrs; ++$c) {
-                    
+
                         $substr_chrs_c_2 = substr($chrs, $c, 2);
                         $ord_chrs_c = ord($chrs{$c});
-                        
+
                         switch (true) {
                             case $substr_chrs_c_2 == '\b':
                                 $utf8 .= chr(0x08);
@@ -515,7 +515,7 @@ class Services_JSON
                                     $utf8 .= $chrs{++$c};
                                 }
                                 break;
-                                
+
                             case preg_match('/\\\u[0-9A-F]{4}/i', substr($chrs, $c, 6)):
                                 // single, escaped unicode character
                                 $utf16 = chr(hexdec(substr($chrs, ($c + 2), 2)))
@@ -523,39 +523,39 @@ class Services_JSON
                                 $utf8 .= $this->utf162utf8($utf16);
                                 $c += 5;
                                 break;
-        
+
                             case ($ord_chrs_c >= 0x20) && ($ord_chrs_c <= 0x7F):
                                 $utf8 .= $chrs{$c};
                                 break;
-        
+
                             case ($ord_chrs_c & 0xE0) == 0xC0:
                                 // characters U-00000080 - U-000007FF, mask 110XXXXX
                                 //see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
                                 $utf8 .= substr($chrs, $c, 2);
                                 ++$c;
                                 break;
-    
+
                             case ($ord_chrs_c & 0xF0) == 0xE0:
                                 // characters U-00000800 - U-0000FFFF, mask 1110XXXX
                                 // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
                                 $utf8 .= substr($chrs, $c, 3);
                                 $c += 2;
                                 break;
-    
+
                             case ($ord_chrs_c & 0xF8) == 0xF0:
                                 // characters U-00010000 - U-001FFFFF, mask 11110XXX
                                 // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
                                 $utf8 .= substr($chrs, $c, 4);
                                 $c += 3;
                                 break;
-    
+
                             case ($ord_chrs_c & 0xFC) == 0xF8:
                                 // characters U-00200000 - U-03FFFFFF, mask 111110XX
                                 // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
                                 $utf8 .= substr($chrs, $c, 5);
                                 $c += 4;
                                 break;
-    
+
                             case ($ord_chrs_c & 0xFE) == 0xFC:
                                 // characters U-04000000 - U-7FFFFFFF, mask 1111110X
                                 // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
@@ -566,9 +566,9 @@ class Services_JSON
                         }
 
                     }
-                    
+
                     return $utf8;
-                
+
                 } elseif (preg_match('/^\[.*\]$/s', $str) || preg_match('/^\{.*\}$/s', $str)) {
                     // array, or object notation
 
@@ -584,14 +584,14 @@ class Services_JSON
                             $obj = new stdClass();
                         }
                     }
-                    
+
                     array_push($stk, array('what'  => SERVICES_JSON_SLICE,
                                            'where' => 0,
                                            'delim' => false));
 
                     $chrs = substr($str, 1, -1);
                     $chrs = $this->reduce_string($chrs);
-                    
+
                     if ($chrs == '') {
                         if (reset($stk) == SERVICES_JSON_IN_ARR) {
                             return $arr;
@@ -603,14 +603,14 @@ class Services_JSON
                     }
 
                     //print("\nparsing {$chrs}\n");
-                    
+
                     $strlen_chrs = strlen($chrs);
-                    
+
                     for ($c = 0; $c <= $strlen_chrs; ++$c) {
-                    
+
                         $top = end($stk);
                         $substr_chrs_c_2 = substr($chrs, $c, 2);
-                    
+
                         if (($c == $strlen_chrs) || (($chrs{$c} == ',') && ($top['what'] == SERVICES_JSON_SLICE))) {
                             // found a comma that is not inside a string, array, etc.,
                             // OR we've reached the end of the character list
@@ -697,16 +697,16 @@ class Services_JSON
                             // found a comment end, and we're in one now
                             array_pop($stk);
                             $c++;
-                            
+
                             for ($i = $top['where']; $i <= $c; ++$i)
                                 $chrs = substr_replace($chrs, ' ', $i, 1);
-                            
+
                             //print("Found end of comment at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 
                         }
-                    
+
                     }
-                    
+
                     if (reset($stk) == SERVICES_JSON_IN_ARR) {
                         return $arr;
 
@@ -714,11 +714,11 @@ class Services_JSON
                         return $obj;
 
                     }
-                
+
                 }
         }
     }
-    
+
 }
-    
+
 ?>

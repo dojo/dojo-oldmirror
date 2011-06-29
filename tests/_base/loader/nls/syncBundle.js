@@ -1,3 +1,3 @@
 ({
-	syncBundle:"syncBundle"
+  syncBundle:"syncBundle"
 })

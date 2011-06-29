@@ -3,10 +3,10 @@
 <head>
     <title>require.js: Common I18N Test</title>
     <script type="text/javascript">
-		requirejsArgs= {
-			dojoLocation:"../../../../.."
-		};
-	</script>
+    requirejsArgs= {
+      dojoLocation:"../../../../.."
+    };
+  </script>
     <script type="text/javascript" src="../requirejs-setup.js"></script>
     <script type="text/javascript" src="../../../../../dojo.js"></script>
     <script type="text/javascript">
@@ -26,23 +26,23 @@
             red = "rouge";
             blue = "bleu";
         }
-		require(["dojo"], function(dojo){
-			// dojo/i18n! looks at dojo.locale
-			locale && (dojo.locale= locale);
-	        require(
-	        ["commonA", "commonB", "doh"],
-	        function(commonA, commonB, doh) {
-	            doh.register(
-	                "commoni18n",
-	                [
-	                    function commoni18n(t) {
-	                        t.is(red, commonA);
-	                        t.is(blue, commonB);
-	                    }
-	                ]
-	            );
-	            doh.run();
-	        });
+    require(["dojo"], function(dojo){
+      // dojo/i18n! looks at dojo.locale
+      locale && (dojo.locale= locale);
+          require(
+          ["commonA", "commonB", "doh"],
+          function(commonA, commonB, doh) {
+              doh.register(
+                  "commoni18n",
+                  [
+                      function commoni18n(t) {
+                          t.is(red, commonA);
+                          t.is(blue, commonB);
+                      }
+                  ]
+              );
+              doh.run();
+          });
         });
     </script>
 </head>
