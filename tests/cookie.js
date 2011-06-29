@@ -1,5 +1,5 @@
 define(["doh", "require"], function(doh, require){
-	if(doh.isBrowser){
-		doh.register("tests.cookie", require.toUrl("./cookie.html"), 30000);
-	}
+  if(doh.isBrowser){
+    doh.register("tests.cookie", require.toUrl("./cookie.html"), 30000);
+  }
 });

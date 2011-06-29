@@ -1,3 +1,3 @@
 define({
-	amdBundle:"amdBundle-ab-cd-ef"
+  amdBundle:"amdBundle-ab-cd-ef"
 });

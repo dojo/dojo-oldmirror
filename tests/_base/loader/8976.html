@@ -13,21 +13,21 @@
 <script>
 var count = 0;
 function wait(count){
-	console.log("count = "+count+", calling addOnLoad");
-	dojo.addOnLoad(function(){
-		try{
-			console.log("count = "+count+", testing");
-			var i = dijit.layout.TabController.constructor;
-			console.log("count = "+count+", worked");
-		}catch(e){ alert("failed: " + e) }
-	});
-	console.log("count = "+count+", addOnLoad returned");
+  console.log("count = "+count+", calling addOnLoad");
+  dojo.addOnLoad(function(){
+    try{
+      console.log("count = "+count+", testing");
+      var i = dijit.layout.TabController.constructor;
+      console.log("count = "+count+", worked");
+    }catch(e){ alert("failed: " + e) }
+  });
+  console.log("count = "+count+", addOnLoad returned");
 }
 function load(count){
-	console.log("count = "+count+", calling require");
-	dojo.require("dijit.dijit");
-	dojo.require("dijit.dijit-all");
-	console.log("count = "+count+", require returned");
+  console.log("count = "+count+", calling require");
+  dojo.require("dijit.dijit");
+  dojo.require("dijit.dijit-all");
+  console.log("count = "+count+", require returned");
 }
 </script>
 <input type=button onmousedown="load(count++);return true" onmouseup="wait(count++);return true" value="click this button to load and wait">

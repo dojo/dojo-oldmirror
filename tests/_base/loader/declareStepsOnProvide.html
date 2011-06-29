@@ -1,21 +1,21 @@
 <html>
 <head>
-	<script type="text/javascript" src="../../../dojo.js"></script>
-	<script type="text/javascript">
-		require(["dojo", "doh", "dojo/tests/_base/loader/declareStepsOnProvideAmd"], 
-			function(dojo, doh, declareStepsOnProvide, declareStepsOnProvide1) {
-			doh.register("loader.declareStepsOnProvide", function(t){
-				var instance= new declareStepsOnProvide();
-				t.is(instance.status(), "OK");
-				// requiring dojo/tests/_base/loader/declareStepsOnProvideAmd caused
-				// dojo/tests/_base/loader/declareStepsOnProvide to load which loaded *two* modules 
-				// and dojo.declare stepped on both of them
-				var instance= new (require("dojo/tests/_base/loader/declareStepsOnProvide1"))();
-				t.is(instance.status(), "OK-1");
-			});
-			doh.runOnLoad();
-		});
-	</script>
+  <script type="text/javascript" src="../../../dojo.js"></script>
+  <script type="text/javascript">
+    require(["dojo", "doh", "dojo/tests/_base/loader/declareStepsOnProvideAmd"], 
+      function(dojo, doh, declareStepsOnProvide, declareStepsOnProvide1) {
+      doh.register("loader.declareStepsOnProvide", function(t){
+        var instance= new declareStepsOnProvide();
+        t.is(instance.status(), "OK");
+        // requiring dojo/tests/_base/loader/declareStepsOnProvideAmd caused
+        // dojo/tests/_base/loader/declareStepsOnProvide to load which loaded *two* modules 
+        // and dojo.declare stepped on both of them
+        var instance= new (require("dojo/tests/_base/loader/declareStepsOnProvide1"))();
+        t.is(instance.status(), "OK-1");
+      });
+      doh.runOnLoad();
+    });
+  </script>
 </head>
 <body>
   <h1>check console</h1>

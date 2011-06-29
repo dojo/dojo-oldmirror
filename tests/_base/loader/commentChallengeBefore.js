@@ -36,7 +36,3 @@ x= ' //test embedded comment ';
 
 x = "/embedded regular-expression/";
 x = '/embedded regular-expression/';
-
-
-
-

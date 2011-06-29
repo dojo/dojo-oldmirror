@@ -3,8 +3,8 @@ for changes related to things listed here.
 
 Tests to add:
 -------------
-	* add tests for dojo.place()
+  * add tests for dojo.place()
 
 Tests to improve:
 -----------------
-	* NodeList isn't testing several of its public methods (place, orphan, adopt, etc.)
+  * NodeList isn't testing several of its public methods (place, orphan, adopt, etc.)
