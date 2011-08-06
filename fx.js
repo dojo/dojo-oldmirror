@@ -1,4 +1,4 @@
-define(["./main", "./fx/Toggler"], function(dojo) {
+define(["./main", "./_base/lang", "./fx/Toggler"], function(dojo, lang) {
 	// module:
 	//		dojo/fx
 	// summary:
@@ -31,7 +31,7 @@ define(["./main", "./fx/Toggler"], function(dojo) {
 			if(a.delay){ this.duration += a.delay; }
 		}, this);
 	};
-	dojo.extend(_chain, {
+	lang.extend(_chain, {
 		_onAnimate: function(){
 			this._fire("onAnimate", arguments);
 		},
@@ -126,7 +126,7 @@ define(["./main", "./fx/Toggler"], function(dojo) {
 			if(this._onEndCtx){ dojo.disconnect(this._onEndCtx); }
 		}
 	});
-	dojo.extend(_chain, _baseObj);
+	lang.extend(_chain, _baseObj);
 
 	dojo.fx.chain = function(/*dojo.Animation[]*/ animations){
 		// summary:
@@ -172,7 +172,7 @@ define(["./main", "./fx/Toggler"], function(dojo) {
 			}
 		);
 	};
-	dojo.extend(_combine, {
+	lang.extend(_combine, {
 		_doAction: function(action, args){
 			dojo.forEach(this._animations, function(a){
 				a[action].apply(a, args);
@@ -219,7 +219,7 @@ define(["./main", "./fx/Toggler"], function(dojo) {
 			dojo.forEach(this._connects, dojo.disconnect);
 		}
 	});
-	dojo.extend(_combine, _baseObj);
+	lang.extend(_combine, _baseObj);
 
 	dojo.fx.combine = function(/*dojo.Animation[]*/ animations){
 		// summary:

@@ -1,4 +1,4 @@
-define(["../main", "./ItemFileReadStore"], function(dojo) {
+define(["../main", "../_base/lang", "./ItemFileReadStore"], function(dojo, lang) {
 	// module:
 	//		dojo/data/ItemFileWriteStore
 	// summary:
@@ -217,7 +217,7 @@ dojo.declare("dojo.data.ItemFileWriteStore", dojo.data.ItemFileReadStore, {
 
 			//Backup the map, we'll have to restore it potentially, in a revert.
 			if(item[this._reverseRefMap]){
-				item["backup_" + this._reverseRefMap] = dojo.clone(item[this._reverseRefMap]);
+				item["backup_" + this._reverseRefMap] = lang.clone(item[this._reverseRefMap]);
 			}
 
 			//TODO:  This causes a reversion problem.  This list won't be restored on revert since it is
@@ -329,7 +329,7 @@ dojo.declare("dojo.data.ItemFileWriteStore", dojo.data.ItemFileReadStore, {
 				if((key === this._storeRefPropName) || (key === this._itemNumPropName) || (key === this._rootItemPropName)){
 					copyOfItemState[key] = item[key];
 				}else if(key === this._reverseRefMap){
-					copyOfItemState[key] = dojo.clone(item[key]);
+					copyOfItemState[key] = lang.clone(item[key]);
 				}else{
 					copyOfItemState[key] = item[key].slice(0, item[key].length);
 				}

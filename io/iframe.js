@@ -1,4 +1,4 @@
-define(["../main", "require"], function(dojo, require) {
+define(["../main", "require", "../_base/lang"], function(dojo, require, lang) {
 	// module:
 	//		dojo/io/iframe
 	// summary:
@@ -173,7 +173,7 @@ dojo.io.iframe = {
 								dojo.query("a", dii._frame.contentWindow.document.documentElement).orphan();
 								var xmlText=(dii._frame.contentWindow.document).documentElement.innerText;
 								xmlText=xmlText.replace(/>\s+</g, "><");
-								xmlText=dojo.trim(xmlText);
+								xmlText=lang.trim(xmlText);
 								//Reusing some code in base dojo for handling XML content.  Simpler and keeps
 								//Core from duplicating the effort needed to locate the XML Parser on IE.
 								var fauxXhr = { responseText: xmlText };

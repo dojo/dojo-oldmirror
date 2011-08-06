@@ -1,4 +1,4 @@
-define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sniff"], function(dojo, lang){
+define(["./kernel", "./lang", "./connect", "./Color", "./lang", "./html", "./sniff"], function(dojo, lang, connect){
 	// module:
 	//		dojo/_base/fx
 	// summary:
@@ -52,7 +52,7 @@ define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sni
 	// Alias to drop come 2.0:
 	dojo._Animation = dojo.Animation;
 
-	dojo.extend(dojo.Animation, {
+	lang.extend(dojo.Animation, {
 		// duration: Integer
 		//		The time in milliseonds the animation will take to run
 		duration: 350,
@@ -323,11 +323,11 @@ define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sni
 			run: function(){}
 		};
 
-	dojo.extend(dojo.Animation, {
+	lang.extend(dojo.Animation, {
 
 		_startTimer: function(){
 			if(!this._timer){
-				this._timer = dojo.connect(runner, "run", this, "_cycle");
+				this._timer = connect.connect(runner, "run", this, "_cycle");
 				ctr++;
 			}
 			if(!timer){
@@ -337,7 +337,7 @@ define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sni
 
 		_stopTimer: function(){
 			if(this._timer){
-				dojo.disconnect(this._timer);
+				connect.disconnect(this._timer);
 				this._timer = null;
 				ctr--;
 			}
@@ -382,7 +382,7 @@ define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sni
 		props.end = fArgs.end;
 
 		var anim = dojo.animateProperty(fArgs);
-		dojo.connect(anim, "beforeBegin", dojo.partial(_makeFadeable, fArgs.node));
+		connect.connect(anim, "beforeBegin", dojo.partial(_makeFadeable, fArgs.node));
 
 		return anim; // dojo.Animation
 	};
@@ -553,7 +553,7 @@ define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sni
 		if(!args.easing){ args.easing = dojo._defaultEasing; }
 
 		var anim = new dojo.Animation(args);
-		dojo.connect(anim, "beforeBegin", anim, function(){
+		connect.connect(anim, "beforeBegin", anim, function(){
 			var pm = {};
 			for(var p in this.properties){
 				// Make shallow copy of properties into pm because we overwrite
@@ -598,7 +598,7 @@ define(["./kernel", "./lang", "./Color", "./connect", "./lang", "./html", "./sni
 			}
 			this.curve = new PropLine(pm);
 		});
-		dojo.connect(anim, "onAnimate", dojo.hitch(dojo, "style", anim.node));
+		connect.connect(anim, "onAnimate", dojo.hitch(dojo, "style", anim.node));
 		return anim; // dojo.Animation
 	};
 
