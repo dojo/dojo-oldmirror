@@ -266,7 +266,7 @@ define(["./kernel", "./lang", "../on", "../has", "./array", "./html"], function(
 		return dojo.connect.apply(this, arguments);
 	});
 
-	dojo.extend(dojo.NodeList, {
+	lang.extend(dojo.NodeList, {
 		// copy the constructors
 		constructor: nl,
 		_NodeListCtor: nl,

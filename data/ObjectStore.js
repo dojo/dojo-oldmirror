@@ -1,4 +1,4 @@
-define(["../main", "../regexp"], function(dojo) {
+define(["../main", "../_base/lang", "../_base/connect", "../regexp"], function(dojo, lang, connect) {
 	// module:
 	//		dojo/data/ObjectStore
 	// summary:
@@ -145,12 +145,12 @@ dojo.declare("dojo.data.ObjectStore", null,{
 			//		See dojo.data.api.Read.fetch
 			//
 
-			args = dojo.delegate(args, args && args.queryOptions);
+			args = lang.delegate(args, args && args.queryOptions);
 			var self = this;
 			var scope = args.scope || self;
 			var query = args.query;
 			if(typeof query == "object"){ // can be null, but that is ignore by for-in
-				query = dojo.delegate(query); // don't modify the original
+				query = lang.delegate(query); // don't modify the original
 				for(var i in query){
 					// find any strings and convert them to regular expressions for wildcard support
 					var required = query[i];
@@ -394,7 +394,7 @@ dojo.declare("dojo.data.ObjectStore", null,{
 			var dirtyObjects = this._dirtyObjects;
 			var left = dirtyObjects.length;// this is how many changes are remaining to be received from the server
 			try{
-				dojo.connect(kwArgs,"onError",function(){
+				connect.connect(kwArgs,"onError",function(){
 					if(kwArgs.revertOnError !== false){
 						var postCommitDirtyObjects = dirtyObjects;
 						dirtyObjects = savingObjects;

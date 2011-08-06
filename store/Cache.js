@@ -1,4 +1,4 @@
-define(["../main"], function(dojo) {
+define(["../main", "../_base/lang"], function(dojo, lang) {
 	// module:
 	//		dojo/store/Cache
 	// summary:
@@ -34,7 +34,7 @@ dojo.store.Cache = function(masterStore, cachingStore, /*dojo.store.__CacheArgs*
 	// options:
 	//		These are additional options for how caching is handled.
 	options = options || {};
-	return dojo.delegate(masterStore, {
+	return lang.delegate(masterStore, {
 		query: function(query, directives){
 			var results = masterStore.query(query, directives);
 			results.forEach(function(object){

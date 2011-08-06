@@ -139,14 +139,14 @@ dojo.string.trim = function(str){
 	//		Returns the trimmed string
 	//	description:
 	//		This version of trim() was taken from [Steven Levithan's blog](http://blog.stevenlevithan.com/archives/faster-trim-javascript).
-	//		The short yet performant version of this function is dojo.trim(),
+	//		The short yet performant version of this function is [[FIXME]] dojo.trim(),
 	//		which is part of Dojo base.  Uses String.prototype.trim instead, if available.
 	return "";	// String
 }
 =====*/
 
 dojo.string.trim = String.prototype.trim ?
-	dojo.trim : // aliasing to the native function
+	lang.trim : // aliasing to the native function
 	function(str){
 		str = str.replace(/^\s+/, '');
 		for(var i = str.length - 1; i >= 0; i--){

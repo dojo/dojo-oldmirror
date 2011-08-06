@@ -275,7 +275,7 @@ define(["./kernel", "../has", "require", "module", "./json", "./lang", "./array"
 			}
 
 			//Put the master matching string in the results.
-			return [dojo.trim(text.substring(startApplication, parenRe.lastIndex))+";\n", parenRe.lastIndex];
+			return [lang.trim(text.substring(startApplication, parenRe.lastIndex))+";\n", parenRe.lastIndex];
 		},
 
 		// the following regex is taken from 1.6. It is a very poor technique to remove comments and

@@ -1,4 +1,4 @@
-define(["./_base/kernel", "./dom-geometry", "./_base/lang", "./ready", "./_base/sniff", "./_base/window"], function(dojo, geometry){
+define(["./_base/kernel", "./dom-geometry", "./_base/lang", "./ready", "./_base/sniff", "./_base/window"], function(dojo, geometry, lang){
 	// module:
 	//		dojo/uacss
 	// summary:
@@ -50,7 +50,7 @@ define(["./_base/kernel", "./dom-geometry", "./_base/lang", "./ready", "./_base/
 			classStr += clz + " ";
 		}
 	}
-	html.className = dojo.trim(html.className + " " + classStr);
+	html.className = lang.trim(html.className + " " + classStr);
 
 	// If RTL mode, then add dj_rtl flag plus repeat existing classes with -rtl extension.
 	// We can't run the code below until the <body> tag has loaded (so we can check for dir=rtl).
@@ -58,7 +58,7 @@ define(["./_base/kernel", "./dom-geometry", "./_base/lang", "./ready", "./_base/
 	dojo.ready(90, function(){
 		if(!dojo._isBodyLtr()){
 			var rtlClassStr = "dj_rtl dijitRtl " + classStr.replace(/ /g, "-rtl ");
-			html.className = dojo.trim(html.className + " " + rtlClassStr + "dj_rtl dijitRtl " + classStr.replace(/ /g, "-rtl "));
+			html.className = lang.trim(html.className + " " + rtlClassStr + "dj_rtl dijitRtl " + classStr.replace(/ /g, "-rtl "));
 		}
 	});
 	return dojo;

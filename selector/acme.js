@@ -1,4 +1,4 @@
-define(["../_base/kernel", "../has", "../_base/sniff", "../_base/array", "../_base/lang", "../_base/window"], function(dojo, has){
+define(["../_base/kernel", "../has", "../_base/lang", "../_base/sniff", "../_base/array", "../_base/window"], function(dojo, has){
   //  module:
   //    dojo/selector/acme
   //  summary:
@@ -45,7 +45,7 @@ define(["../_base/kernel", "../has", "../_base/sniff", "../_base/array", "../_ba
 	// need to provide these methods and properties. No other porting should be
 	// necessary, save for configuring the system to use a class other than
 	// dojo.NodeList as the return instance instantiator
-	var trim = 			dojo.trim;
+	var trim = 			lang.trim;
 	var each = 			dojo.forEach;
 	// 					d.isIE; // float
 	// 					d.isSafari; // float
