@@ -1,4 +1,4 @@
-define(["../_base/kernel", "../has", "../_base/lang", "../_base/sniff", "../_base/array", "../_base/window"], function(dojo, has){
+define(["../_base/kernel", "../has", "../_base/lang", "../_base/sniff", "../_base/array", "../_base/window"], function(dojo, has, lang){
   //  module:
   //    dojo/selector/acme
   //  summary:
