@@ -47,7 +47,7 @@ return declare("dojo.store.JsonRest", base, {
 		//		HTTP headers
 		//	returns: Object
 		//		The object in the store that matches the given id.
-		var headers = options || {};
+		var headers = lang.mixin({}, this.headers, options);
 		headers.Accept = this.accepts;
 		return xhr("GET", {
 			url:this.target + id,
@@ -79,16 +79,18 @@ return declare("dojo.store.JsonRest", base, {
 		options = options || {};
 		var id = ("id" in options) ? options.id : this.getIdentity(object);
 		var hasId = typeof id != "undefined";
-		return xhr(hasId && !options.incremental ? "PUT" : "POST", {
-				url: hasId ? this.target + id : this.target,
-				postData: JSON.stringify(object),
-				handleAs: "json",
-				headers:{
+		var headers = lang.mixin({}, this.headers, {
 					"Content-Type": "application/json",
 					Accept: this.accepts,
 					"If-Match": options.overwrite === true ? "*" : null,
 					"If-None-Match": options.overwrite === false ? "*" : null
-				}
+				});
+		
+		return xhr(hasId && !options.incremental ? "PUT" : "POST", {
+				url: hasId ? this.target + id : this.target,
+				postData: JSON.stringify(object),
+				handleAs: "json",
+				headers: headers
 			});
 	},
 	add: function(object, options){
@@ -110,7 +112,8 @@ return declare("dojo.store.JsonRest", base, {
 		// id: Number
 		//		The identity to use to delete the object
 		return xhr("DELETE",{
-			url:this.target + id
+			url:this.target + id,
+			headers: this.headers
 		});
 	},
 	query: function(query, options){
@@ -123,7 +126,7 @@ return declare("dojo.store.JsonRest", base, {
 		//		The optional arguments to apply to the resultset.
 		//	returns: Store.QueryResults
 		//		The results of the query, extended with iterative methods.
-		var headers = {Accept: this.accepts};
+		var headers = lang.mixin({}, this.headers, {Accept: this.accepts});
 		options = options || {};
 
 		if(options.start >= 0 || options.count >= 0){
