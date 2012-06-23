@@ -93,9 +93,9 @@ define(["../has", "./config", "require", "module"], function(has, config, requir
 			this.revision = 0;
 		}
 	=====*/
-	var rev = "$Rev: 27913 $".match(/\d+/);
+	var rev = "$Rev: 28982 $".match(/\d+/);
 	dojo.version = {
-		major: 1, minor: 7, patch: 2, flag: "",
+		major: 1, minor: 7, patch: 3, flag: "",
 		revision: rev ? +rev[0] : NaN,
 		toString: function(){
 			var v = dojo.version;

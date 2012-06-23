@@ -11,7 +11,7 @@ define([
 		return typeof XMLHttpRequest !== 'undefined';
 	});
 
-	if(has("dojo-xhr-factory")){
+	if(has("dojo-xhr-factory") && require.getXhr){
 		dojo._xhrObj = require.getXhr;
 	}else if (has("native-xhr")){
 		dojo._xhrObj = function(){
@@ -521,11 +521,11 @@ define([
 				if(dojo.config.debugAtAllCosts){
 					func.call(this);
 				}else{
-//					try{
+					try{
 						func.call(this);
-	/*				}catch(e){
+					}catch(e){
 						dfd.errback(e);
-					}*/
+					}
 				}
 			}
 		}
