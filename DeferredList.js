@@ -69,7 +69,7 @@ dojo.DeferredList.prototype.gatherResults = function(deferredList){
 	//		parameters to its callback.
 
 	var d = new dojo.DeferredList(deferredList, false, true, false);
-	d.addCallback(function(results){
+	d.then(function(results){
 		var ret = [];
 		darray.forEach(results, function(result){
 			ret.push(result[1]);
