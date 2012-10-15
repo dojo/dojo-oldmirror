@@ -7,7 +7,7 @@ define([
 // module:
 //		dojo/io/iframe
 
-dojo.deprecated("dojo/io/iframe", "Use dojo/request/iframe.", "2.0");
+kernel.deprecated("dojo/io/iframe", "Use dojo/request/iframe.", "2.0");
 
 /*=====
 var __ioArgs = declare(kernel.__IoArgs, {
@@ -140,7 +140,7 @@ var iframe = lang.delegate(_iframe, {
 		var ioArgs = dfd.ioArgs;
 
 		var method = "GET",
-			form = dojo.byId(args.form);
+			form = dom.byId(args.form);
 		if(args.method && args.method.toUpperCase() === "POST" && form){
 			method = "POST";
 		}

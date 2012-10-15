@@ -5,6 +5,7 @@ function(lang, Deferred /*=====, declare, Store =====*/){
 //		dojo/store/Cache
 
 var Cache = function(masterStore, cachingStore, options){
+	options = options || {};
 	return lang.delegate(masterStore, {
 		query: function(query, directives){
 			var results = masterStore.query(query, directives);
@@ -83,7 +84,7 @@ Cache = declare(Store, {
 		// cachingStore:
 		//		This is the caching store that will be used to store responses for quick access.
 		//		Typically this should be a local store.
-		// options: __CacheArgs
+		// options: __CacheArgs?
 		//		These are additional options for how caching is handled.
 	},
 	query: function(query, directives){
@@ -91,9 +92,9 @@ Cache = declare(Store, {
 		//		Query the underlying master store and cache any results.
 		// query: Object|String
 		//		The object or string containing query information. Dependent on the query engine used.
-		// directives: Store.QueryOptions?
+		// directives: dojo/store/api/Store.QueryOptions?
 		//		An optional keyword arguments object with additional parameters describing the query.
-		// returns: Store.QueryResults
+		// returns: dojo/store/api/Store.QueryResults
 		//		A QueryResults object that can be used to iterate over.
 	},
 	get: function(id, directives){
@@ -103,7 +104,7 @@ Cache = declare(Store, {
 		//		The identifier for the object in question.
 		// directives: Object?
 		//		Any additional parameters needed to describe how the get should be performed.
-		// returns: Store.QueryResults
+		// returns: dojo/store/api/Store.QueryResults
 		//		A QueryResults object.
 	},
 	add: function(object, directives){
@@ -111,7 +112,7 @@ Cache = declare(Store, {
 		//		Add the given object to the store.
 		// object: Object
 		//		The object to add to the store.
-		// directives: Store.AddOptions?
+		// directives: dojo/store/api/Store.AddOptions?
 		//		Any additional parameters needed to describe how the add should be performed.
 		// returns: Number
 		//		The new id for the object.
@@ -121,7 +122,7 @@ Cache = declare(Store, {
 		//		Put the object into the store (similar to an HTTP PUT).
 		// object: Object
 		//		The object to put to the store.
-		// directives: Store.PutDirectives?
+		// directives: dojo/store/api/Store.PutDirectives?
 		//		Any additional parameters needed to describe how the put should be performed.
 		// returns: Number
 		//		The new id for the object.

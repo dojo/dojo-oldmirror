@@ -6,6 +6,15 @@ function(dojo, lang, aspect, dom, on, has, mouse, ready, win){
 
 	var hasTouch = has("touch");
 
+	// TODO for 2.0: detection of IOS version should be moved from mobile/sniff to dojo/sniff
+	var ios4 = false;
+	if(has("ios")){
+		var ua = navigator.userAgent;
+		var v = ua.match(/OS ([\d_]+)/) ? RegExp.$1 : "1";
+		var os = parseFloat(v.replace(/_/, '.').replace(/_/g, ''));
+		ios4 = os < 5;
+	}
+
 	var touchmove, hoveredNode;
 
 	if(hasTouch){
@@ -34,8 +43,8 @@ function(dojo, lang, aspect, dom, on, has, mouse, ready, win){
 			// Fire synthetic touchover and touchout events on nodes since the browser won't do it natively.
 			on(win.doc, "touchmove", function(evt){
 				var newNode = win.doc.elementFromPoint(
-					evt.pageX - win.global.pageXOffset,
-					evt.pageY - win.global.pageYOffset
+					evt.pageX - (ios4 ? 0 : win.global.pageXOffset), // iOS 4 expects page coords
+					evt.pageY - (ios4 ? 0 : win.global.pageYOffset)
 				);
 				if(newNode && hoveredNode !== newNode){
 					// touch out on the old node
@@ -63,7 +72,16 @@ function(dojo, lang, aspect, dom, on, has, mouse, ready, win){
 			return on(win.doc, "touchmove", function(evt){
 				if(node === win.doc || dom.isDescendant(hoveredNode, node)){
 					listener.call(this, lang.mixin({}, evt, {
-						target: hoveredNode
+						target: hoveredNode,
+						// forcing the copy of the "touches" property is needed for iOS6:
+						// differently than in iOS 4 and 5, the code used by lang.mixin
+						// to iterate over the properties of the source object:
+						//   for(name in source){ ... }
+						// does not hit anymore the "touches" property... Apparently it 
+						// became a "non-enumerable" property.
+						touches: evt.touches, 
+						preventDefault: function(){evt.preventDefault();},
+						stopPropagation: function(){evt.stopPropagation();}
 					}));
 				}
 			});
