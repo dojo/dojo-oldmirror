@@ -167,7 +167,7 @@ return declare("dojo.store.JsonRest", base, {
 			query += (query || hasQuestionMark ? "&" : "?") + (sortParam ? sortParam + '=' : "sort(");
 			for(var i = 0; i<options.sort.length; i++){
 				var sort = options.sort[i];
-				query += (i > 0 ? "," : "") + (sort.descending ? '-' : '+') + encodeURIComponent(sort.attribute);
+				query += (i > 0 ? "," : "") + encodeURIComponent((sort.descending ? '-' : '+') + sort.attribute);
 			}
 			if(!sortParam){
 				query += ")";
