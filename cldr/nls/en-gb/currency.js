@@ -2,15 +2,16 @@ define(
 //begin v1.x content
 {
 	"HKD_displayName": "Hong Kong Dollar",
-	"CHF_displayName": "Swiss Franc",
-	"JPY_symbol": "¥",
 	"CAD_displayName": "Canadian Dollar",
+	"HKD_symbol": "HK$",
 	"CNY_displayName": "Chinese Yuan",
-	"USD_symbol": "$",
 	"AUD_displayName": "Australian Dollar",
-	"JPY_displayName": "Japanese Yen",
-	"USD_displayName": "US Dollar",
-	"GBP_displayName": "British Pound Sterling",
+	"CAD_symbol": "CA$",
+	"EUR_symbol": "€",
+	"CNY_symbol": "CN¥",
+	"GBP_displayName": "British Pound",
+	"GBP_symbol": "£",
+	"AUD_symbol": "AU$",
 	"EUR_displayName": "Euro"
 }
 //end v1.x content
