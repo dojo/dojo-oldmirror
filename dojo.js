@@ -1171,6 +1171,8 @@
 			if (/^require\*/.test(module.mid)) {
 				delete modules[module.mid];
 			}
+			//raise moduleLvent
+			signal("moduleLoaded", [module.result, module.mid]);
 		},
 
 		circleTrace = [],
