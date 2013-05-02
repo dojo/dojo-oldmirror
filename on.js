@@ -39,7 +39,7 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 		//		|	obj.onfoo({key:"value"});
 		//		If you use on.emit on a DOM node, it will use native event dispatching when possible.
 
-		if(typeof target.on == "function" && typeof type != "function"){
+		if(typeof target.on == "function" && typeof type != "function" && !target.nodeType){
 			// delegate to the target's on() method, so it can handle it's own listening if it wants
 			return target.on(type, listener);
 		}
@@ -471,8 +471,17 @@ define(["./has!dom-addeventlistener?:./aspect", "./_base/kernel", "./has"], func
 					}catch(e){} 
 					if(originalEvent.type){
 						// deleting properties doesn't work (older iOS), have to use delegation
-						Event.prototype = originalEvent;
-						var event = new Event;
+						if(has('mozilla')){
+							// Firefox doesn't like delegated properties, so we have to copy
+							var event = {};
+							for(var name in originalEvent){
+								event[name] = originalEvent[name];
+							}
+						}else{
+							// old iOS branch
+							Event.prototype = originalEvent;
+							var event = new Event;
+						}
 						// have to delegate methods to make them work
 						event.preventDefault = function(){
 							originalEvent.preventDefault();
